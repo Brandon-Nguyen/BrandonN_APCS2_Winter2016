@@ -32,11 +32,61 @@ public class FracCalc {
     	String[] splitStr = input.split(" ");
     	String firstOperand = splitStr[0];
     	String operator = splitStr[1];
-    	String secondOperator = splitStr[2];
+    	String secondOperand = splitStr[2];
         
-        return secondOperator;
+    	//splitOperand(firstOperand);
+        return splitOperand(secondOperand);
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
     
+    public static String splitOperand(String operand){
+    	
+    	//Initializes the varibles that will be returned later
+    	String wholeNum = "0";
+    	String numerator = "0";
+    	String denominator = "1";
+    	
+    	if(operand.indexOf("/") == -1){
+    		
+    		//makes the whole number equal to the operand put into the method
+    		wholeNum = operand;
+    		/*Sees what is printed 
+    		System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
+			return "whole:" + wholeNum+ " numerator:0 denominator:1";
+		}
+    		
+    	if(operand.indexOf("_") != -1){
+    		String [] underscoreSplit = operand.split("_");
+    		wholeNum = underscoreSplit[0];
+    		operand = underscoreSplit[1];
+    		
+    	}
+    	
+    	if(operand.length() >= 3){
+    		String[] numOrDenom = operand.split("/");
+    		numerator = numOrDenom[0];
+    		denominator = numOrDenom[1];
+    	}
+    	System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);
+    	return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

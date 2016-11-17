@@ -34,51 +34,35 @@ public class FracCalc {
     	String operator = splitStr[1];
     	String secondOperand = splitStr[2];
         
-    	splitOperand(firstOperand);
+    	//splitOperand(firstOperand);
         return splitOperand(secondOperand);
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
     
     public static String splitOperand(String operand){
-    	
-    	//Initializes the varibles that will be returned later
     	String wholeNum = "0";
     	String numerator = "0";
     	String denominator = "1";
     	
     	if(operand.indexOf("/") == -1){
-    		
-    		//makes the whole number equal to the operand put into the method
-    		wholeNum = operand;
-    		/*Sees what is printed 
-    		System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
-    		return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
+    		System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);
+			return "whole:" + operand + " numerator:0 denominator:1";
 		}
     		
     	if(operand.indexOf("_") != -1){
-    		
-    		//splits the array by the underscore to tell if the operand has a whole number or not
     		String [] underscoreSplit = operand.split("_");
-    		
-    		//assings the whole number to the corresponding variable
     		wholeNum = underscoreSplit[0];
-    		
-    		//changes operand so that it is only the fraction, without the whole number
     		operand = underscoreSplit[1];
     		
     	}
     	
     	if(operand.length() >= 3){
-    		
-    		//splits the operand or remainder of the fraction by the slash and 
-    		//assings numerator and denominator
     		String[] numOrDenom = operand.split("/");
     		numerator = numOrDenom[0];
     		denominator = numOrDenom[1];
     	}
-    	/*tested for the output of the code
-    	System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
+    	System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);
     	return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
     }
     
