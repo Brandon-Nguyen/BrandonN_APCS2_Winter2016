@@ -47,6 +47,7 @@ public class FracCalc {
     	String numerator = "0";
     	String denominator = "1";
     	
+    	//checks to see if the operand is a fraction or just a whole number
     	if(operand.indexOf("/") == -1){
     		
     		//makes the whole number equal to the operand put into the method
@@ -55,7 +56,8 @@ public class FracCalc {
     		System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
     		return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
 		}
-    		
+    	
+    	//checks to see if the fraction has a whole number
     	if(operand.indexOf("_") != -1){
     		
     		//splits the array by the underscore to tell if the operand has a whole number or not
@@ -69,6 +71,7 @@ public class FracCalc {
     		
     	}
     	
+    	//checks to see if the operand leftover is a fraction
     	if(operand.length() >= 3){
     		
     		//splits the operand or remainder of the fraction by the slash and 
