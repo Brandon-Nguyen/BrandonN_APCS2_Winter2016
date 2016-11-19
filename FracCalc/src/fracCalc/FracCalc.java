@@ -8,10 +8,19 @@ public class FracCalc {
         // TODO: Read the input from the user and call produceAnswer with an equation
     	Scanner input = new Scanner(System.in);
     	
-    	System.out.print("Enter a fraction string: ");
-    	String fractionStr = input.nextLine();
-    	
-    	produceAnswer(fractionStr);
+	    System.out.print("Enter a fraction string: ");
+	    String fractionString = input.nextLine();
+	    
+	    //checks to see if the input is quit
+	    while (!fractionString.equals("quit")){
+	    	System.out.println(produceAnswer(fractionString));
+		    System.out.println();
+		    //prompts for another input
+		    System.out.print("Enter a fraction string: ");
+		    fractionString = input.nextLine();
+	    }
+	    
+	    
 
     }
     
@@ -52,8 +61,6 @@ public class FracCalc {
     		
     		//makes the whole number equal to the operand put into the method
     		wholeNum = operand;
-    		/*Sees what is printed 
-    		System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
     		return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
 		}
     	
@@ -80,26 +87,7 @@ public class FracCalc {
     		numerator = numOrDenom[0];
     		denominator = numOrDenom[1];
     	}
-    	/*tested for the output of the code
-    	System.out.println("whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator);*/
     	return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
