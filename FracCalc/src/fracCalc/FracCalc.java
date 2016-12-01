@@ -50,6 +50,7 @@ public class FracCalc {
         System.out.println(Arrays.toString(secondOperand));
         
         //convert from mixed number to improper fraction
+        firstFrac = toImproperFraction
         
         //decide whether to use addSubtract or multiplyDivide
         
@@ -103,15 +104,33 @@ public class FracCalc {
     	return fracArr;
     }
     
-    public static String toImproperFrac(int wholeNum, int numerator, int denominator) {
-		
+    public static int[] toImproperFrac(int[] operand) {
+    	//set up array that will be returned later
+    	int[] numDenom = new int[2];
+    	//checking to see if the fraction is negative or positive
+    	if(operand[0] < 0){
+    		numDenom = operand[0] * operand[2] - operand[1];
+    	}else{
+    		numDenom[0] = operand[0] * operand[2] + operand[1];
+    	}
+    	numDenom[1] = operand[2];
+    	
+    	return numDenom;
 	}
     
-    public static String addSubtractFrac(String firstOperand, String secondOperand, String operator){
-    	return;
+    public static int[] addFrac(int[] firstOperand, int[] secondOperand){
+    	
     }
     
-    public static String multiplyDivideFrac(String firstOperand, String secondOperand, String operator){
-    	return;
+    public static int[] subtractFrac(int[] firstOperand, int[]secondOperand){
+    	
+    }
+    
+    public static int[] multiplyFrac(int[] firstOperand, int[] secondOperand){
+    	
+    }
+    
+    public static int[] divideFrac(int[] firstOperand, int[] secondOperand){
+    	
     }
 }
