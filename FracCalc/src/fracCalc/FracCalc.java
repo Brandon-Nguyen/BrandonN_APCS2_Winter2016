@@ -1,5 +1,6 @@
 package fracCalc;
 
+import java.util.Arrays;
 import java.util.Scanner;
 public class FracCalc {
 
@@ -38,30 +39,42 @@ public class FracCalc {
     	
     	//the user inputs the string with spaces in between 
     	//so the code splits the string by the spaces to get everything
-    	String[] splitStr = input.split(" ");
-    	String firstOperand = splitStr[0];
-    	String operator = splitStr[1];
-    	String secondOperand = splitStr[2];
+    	String[] splitInput = parseInput(input);
+    	System.out.println(Arrays.toString(splitInput));
         
-    	splitOperand(firstOperand);
-        return splitOperand(secondOperand);
+    	//Split the fraction into the whole number, numerator, and denominator
+    	int[] firstOperand = parseOperand(splitInput[0]);
+    	String operator = splitInput[1];
+        int[] secondOperand = parseOperand(splitInput[2]);
+        System.out.println(Arrays.toString(firstOperand));
+        System.out.println(Arrays.toString(secondOperand));
+        
+        //convert from mixed number to improper fraction
+        
+        //decide whether to use addSubtract or multiplyDivide
+        
+        //convert back from improper fraction to a mixed number and reduce it
+        return("testing");
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
     
-    public static String splitOperand(String operand){
+    public static String[] parseInput(String input){
+    	String[] splitStr = input.split(" ");
+    	return splitStr;
+    }
+    
+    public static int[] parseOperand(String operand){
     	
     	//Initializes the varibles that will be returned later
-    	String wholeNum = "0";
-    	String numerator = "0";
-    	String denominator = "1";
+    	int[] fracArr = {0, 0, 1};
     	
     	//checks to see if the operand is a fraction or just a whole number
     	if(operand.indexOf("/") == -1){
     		
     		//makes the whole number equal to the operand put into the method
-    		wholeNum = operand;
-    		return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
+    		fracArr[0] = Integer.parseInt(operand);
+    		return fracArr;
 		}
     	
     	//checks to see if the fraction has a whole number
@@ -71,7 +84,7 @@ public class FracCalc {
     		String [] underscoreSplit = operand.split("_");
     		
     		//assings the whole number to the corresponding variable
-    		wholeNum = underscoreSplit[0];
+    		fracArr[0] = Integer.parseInt(underscoreSplit[0]);
     		
     		//changes operand so that it is only the fraction, without the whole number
     		operand = underscoreSplit[1];
@@ -84,10 +97,21 @@ public class FracCalc {
     		//splits the operand or remainder of the fraction by the slash and 
     		//assings numerator and denominator
     		String[] numOrDenom = operand.split("/");
-    		numerator = numOrDenom[0];
-    		denominator = numOrDenom[1];
+    		fracArr[1] = Integer.parseInt(numOrDenom[0]);
+    		fracArr[2] = Integer.parseInt(numOrDenom[1]);
     	}
-    	return "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
+    	return fracArr;
     }
     
+    public static String toImproperFrac(int wholeNum, int numerator, int denominator) {
+		
+	}
+    
+    public static String addSubtractFrac(String firstOperand, String secondOperand, String operator){
+    	return;
+    }
+    
+    public static String multiplyDivideFrac(String firstOperand, String secondOperand, String operator){
+    	return;
+    }
 }
