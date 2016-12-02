@@ -50,9 +50,22 @@ public class FracCalc {
         System.out.println(Arrays.toString(secondOperand));
         
         //convert from mixed number to improper fraction
-        firstFrac = toImproperFraction
+        int[] firstFrac = toImproperFrac(firstOperand);
+        int[] secondFrac = toImproperFrac(secondOperand);
+        System.out.println(Arrays.toString(firstFrac));
+        System.out.println(Arrays.toString(secondFrac));
         
-        //decide whether to use addSubtract or multiplyDivide
+        //decide whether to use add, subtract, divide or multiply
+        if(operator.equals("+")){
+        	System.out.println(Arrays.toString(addFrac(firstFrac, secondFrac)));
+        }else if(operator.equals("-")){
+        	System.out.println(Arrays.toString(subtractFrac(firstFrac, secondFrac)));
+        }else if(operator.equals("*")){
+        	multiplyFrac(firstFrac, secondFrac);
+        }else{
+        	divideFrac(firstFrac, secondFrac);
+        }
+        
         
         //convert back from improper fraction to a mixed number and reduce it
         return("testing");
@@ -108,8 +121,10 @@ public class FracCalc {
     	//set up array that will be returned later
     	int[] numDenom = new int[2];
     	//checking to see if the fraction is negative or positive
-    	if(operand[0] < 0){
-    		numDenom = operand[0] * operand[2] - operand[1];
+    	if(operand[0] == 0){
+    		numDenom[0] = operand[1];
+    	}else if(operand[0] < 0){
+    		numDenom[0] = operand[0] * operand[2] - operand[1];
     	}else{
     		numDenom[0] = operand[0] * operand[2] + operand[1];
     	}
@@ -119,11 +134,26 @@ public class FracCalc {
 	}
     
     public static int[] addFrac(int[] firstOperand, int[] secondOperand){
+    	int[] result = new int[2];
+    	if(firstOperand[1] == secondOperand[1]){
+    		result[0] = firstOperand[0] + secondOperand[0];
+    		result[1] = firstOperand[1];
+    	}else{
+    		
+    		firstOperand[0] = firstOperand[0] * secondOperand[1];
+    		
+    		secondOperand[0] = secondOperand[0] * firstOperand[1];
+    		
+    		result[0] = firstOperand[0] + secondOperand[0];
+    		result[1] = firstOperand[1] * secondOperand[1];
+    	}
     	
+    	return result;
     }
     
-    public static int[] subtractFrac(int[] firstOperand, int[]secondOperand){
-    	
+    public static int[] subtractFrac(int[] firstOperand, int[] secondOperand){
+    	secondOperand[0] = secondOperand[0] * -1;
+    	return addFrac(firstOperand, secondOperand);
     }
     
     public static int[] multiplyFrac(int[] firstOperand, int[] secondOperand){
@@ -131,6 +161,10 @@ public class FracCalc {
     }
     
     public static int[] divideFrac(int[] firstOperand, int[] secondOperand){
+    	
+    }
+    
+    public static String toMixedNum(int[] improperFrac){
     	
     }
 }
