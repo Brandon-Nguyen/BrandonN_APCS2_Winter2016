@@ -40,20 +40,20 @@ public class FracCalc {
     	//the user inputs the string with spaces in between 
     	//so the code splits the string by the spaces to get everything
     	String[] splitInput = parseInput(input);
-    	//System.out.println(Arrays.toString(splitInput));
+    	System.out.println(Arrays.toString(splitInput));
         
     	//Split the fraction into the whole number, numerator, and denominator
     	int[] firstOperand = parseOperand(splitInput[0]);
     	String operator = splitInput[1];
         int[] secondOperand = parseOperand(splitInput[2]);
-        //System.out.println(Arrays.toString(firstOperand));
-        //System.out.println(Arrays.toString(secondOperand));
+        System.out.println(Arrays.toString(firstOperand));
+        System.out.println(Arrays.toString(secondOperand));
         
         //convert from mixed number to improper fraction
         int[] firstFrac = toImproperFrac(firstOperand);
         int[] secondFrac = toImproperFrac(secondOperand);
-        //System.out.println(Arrays.toString(firstFrac));
-        //System.out.println(Arrays.toString(secondFrac));
+        System.out.println(Arrays.toString(firstFrac));
+        System.out.println(Arrays.toString(secondFrac));
         
         //decide whether to use add, subtract, divide or multiply
         int[] resultFrac = new int [2];

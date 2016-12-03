@@ -40,37 +40,35 @@ public class FracCalc {
     	//the user inputs the string with spaces in between 
     	//so the code splits the string by the spaces to get everything
     	String[] splitInput = parseInput(input);
-    	//System.out.println(Arrays.toString(splitInput));
+    	System.out.println(Arrays.toString(splitInput));
         
     	//Split the fraction into the whole number, numerator, and denominator
     	int[] firstOperand = parseOperand(splitInput[0]);
     	String operator = splitInput[1];
         int[] secondOperand = parseOperand(splitInput[2]);
-        //System.out.println(Arrays.toString(firstOperand));
-        //System.out.println(Arrays.toString(secondOperand));
+        System.out.println(Arrays.toString(firstOperand));
+        System.out.println(Arrays.toString(secondOperand));
         
         //convert from mixed number to improper fraction
         int[] firstFrac = toImproperFrac(firstOperand);
         int[] secondFrac = toImproperFrac(secondOperand);
-        //System.out.println(Arrays.toString(firstFrac));
-        //System.out.println(Arrays.toString(secondFrac));
+        System.out.println(Arrays.toString(firstFrac));
+        System.out.println(Arrays.toString(secondFrac));
         
         //decide whether to use add, subtract, divide or multiply
-        int[] resultFrac = new int [2];
-
         if(operator.equals("+")){
-        	resultFrac =  addFrac(firstFrac, secondFrac);
+        	System.out.println(Arrays.toString(addFrac(firstFrac, secondFrac)));
         }else if(operator.equals("-")){
-        	resultFrac =  subtractFrac(firstFrac, secondFrac);
+        	System.out.println(Arrays.toString(subtractFrac(firstFrac, secondFrac)));
         }else if(operator.equals("*")){
-        	 resultFrac = multiplyFrac(firstFrac, secondFrac);
+        	multiplyFrac(firstFrac, secondFrac);
         }else{
-        	resultFrac =  divideFrac(firstFrac, secondFrac);
+        	divideFrac(firstFrac, secondFrac);
         }
         
         
         //convert back from improper fraction to a mixed number and reduce it
-        return(toMixedNum(resultFrac));
+        return("testing");
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
@@ -158,29 +156,15 @@ public class FracCalc {
     	return addFrac(firstOperand, secondOperand);
     }
     
-    public static int[] multiplyFrac(int[] firstFrac, int[] secondFrac){
-    	int[] result = new int[2];
-    	result[0] = firstFrac[0] * secondFrac[0];
-    	result[1] = firstFrac[1] * secondFrac[1];
-    	return result;
+    public static int[] multiplyFrac(int[] firstOperand, int[] secondOperand){
+    	
     }
     
-    public static int[] divideFrac(int[] firstFrac, int[] secondFrac){
-    	int tempVar = secondFrac[1];
-    	secondFrac[1] = secondFrac[0];
-    	secondFrac[0] = tempVar;
+    public static int[] divideFrac(int[] firstOperand, int[] secondOperand){
     	
-    	return multiplyFrac(firstFrac, secondFrac);
     }
     
-    public static String toMixedNum(int[] frac){
-    	int wholeNum = frac[0] / frac[1];
-    	int numerator = frac[0] % frac[1];
-    	if(numerator < 0){
-    		numerator *= -1;
-    	}
+    public static String toMixedNum(int[] improperFrac){
     	
-    	return (wholeNum + "_" + numerator + "/" + frac[1]);
     }
-
 }
