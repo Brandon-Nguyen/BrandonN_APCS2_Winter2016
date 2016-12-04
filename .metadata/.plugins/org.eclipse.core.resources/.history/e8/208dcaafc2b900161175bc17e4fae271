@@ -68,9 +68,6 @@ public class FracCalc {
         	resultFrac =  divideFrac(firstFrac, secondFrac);
         }
         
-        if(resultFrac[0] == 0 && resultFrac[1] == 0){
-        	return("0");
-        }
         
         //convert back from improper fraction to a mixed number and reduce it
         return(toMixedNum(resultFrac));
@@ -163,13 +160,8 @@ public class FracCalc {
     
     public static int[] multiplyFrac(int[] firstFrac, int[] secondFrac){
     	int[] result = new int[2];
-    	if(firstFrac[0] == 0 || secondFrac[0] == 0){
-    		result[0] = 0;
-    		result[1] = 0;
-    	}else{
-	    	result[0] = firstFrac[0] * secondFrac[0];
-	    	result[1] = firstFrac[1] * secondFrac[1];
-    	}
+    	result[0] = firstFrac[0] * secondFrac[0];
+    	result[1] = firstFrac[1] * secondFrac[1];
     	return result;
     }
     

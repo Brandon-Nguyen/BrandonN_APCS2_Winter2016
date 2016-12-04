@@ -52,8 +52,8 @@ public class FracCalc {
         //convert from mixed number to improper fraction
         int[] firstFrac = toImproperFrac(firstOperand);
         int[] secondFrac = toImproperFrac(secondOperand);
-        //System.out.println(Arrays.toString(firstFrac));
-        //System.out.println(Arrays.toString(secondFrac));
+        System.out.println(Arrays.toString(firstFrac));
+        System.out.println(Arrays.toString(secondFrac));
         
         //decide whether to use add, subtract, divide or multiply
         int[] resultFrac = new int [2];
@@ -68,9 +68,6 @@ public class FracCalc {
         	resultFrac =  divideFrac(firstFrac, secondFrac);
         }
         
-        if(resultFrac[0] == 0 && resultFrac[1] == 0){
-        	return("0");
-        }
         
         //convert back from improper fraction to a mixed number and reduce it
         return(toMixedNum(resultFrac));
