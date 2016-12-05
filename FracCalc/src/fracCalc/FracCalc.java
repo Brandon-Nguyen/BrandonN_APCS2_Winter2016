@@ -1,3 +1,4 @@
+//Brandon Nguyen, 12/5/16
 package fracCalc;
 
 import java.util.Arrays;
@@ -71,9 +72,11 @@ public class FracCalc {
         if(resultFrac[0] == 0 && resultFrac[1] == 0){
         	return("0");
         }
-        
+        //reduce the fraction
+        int[] finalFrac = reduceResult(resultFrac);
+        System.out.println(Arrays.toString(finalFrac));
         //convert back from improper fraction to a mixed number and reduce it
-        return(toMixedNum(resultFrac));
+        return(toMixedNum(finalFrac));
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
@@ -133,40 +136,47 @@ public class FracCalc {
     	}else{
     		numDenom[0] = operand[0] * operand[2] + operand[1];
     	}
+    	//setting denominator
     	numDenom[1] = operand[2];
     	
     	return numDenom;
 	}
     
-    public static int[] addFrac(int[] firstOperand, int[] secondOperand){
+    public static int[] addFrac(int[] firstFrac, int[] secondFrac){
+    	// new integer array to return the combined fraction
     	int[] result = new int[2];
-    	if(firstOperand[1] == secondOperand[1]){
-    		result[0] = firstOperand[0] + secondOperand[0];
-    		result[1] = firstOperand[1];
+    	//checks if denominator is the same
+    	if(firstFrac[1] == secondFrac[1]){
+    		result[0] = firstFrac[0] + secondFrac[0];
+    		result[1] = firstFrac[1];
     	}else{
-    		
-    		firstOperand[0] = firstOperand[0] * secondOperand[1];
-    		
-    		secondOperand[0] = secondOperand[0] * firstOperand[1];
-    		
-    		result[0] = firstOperand[0] + secondOperand[0];
-    		result[1] = firstOperand[1] * secondOperand[1];
+    		//deenominator isnt the same, so multiply numerators by denominator
+    		firstFrac[0] = firstFrac[0] * secondFrac[1];
+    		secondFrac[0] = secondFrac[0] * firstFrac[1];
+    		//combine the multiplied numerators
+    		result[0] = firstFrac[0] + secondFrac[0];
+    		//multiply the denominators out
+    		result[1] = firstFrac[1] * secondFrac[1];
     	}
     	
     	return result;
     }
     
-    public static int[] subtractFrac(int[] firstOperand, int[] secondOperand){
-    	secondOperand[0] = secondOperand[0] * -1;
-    	return addFrac(firstOperand, secondOperand);
+    public static int[] subtractFrac(int[] firstFrac, int[] secondFrac){
+    	//changes the second fraction into a negative fraction
+    	secondFrac[0] = secondFrac[0] * -1;
+    	return addFrac(firstFrac, secondFrac);
     }
     
     public static int[] multiplyFrac(int[] firstFrac, int[] secondFrac){
+    	//new int array to return combined fraction
     	int[] result = new int[2];
+    	//checks to see if the fraction has a numerator or if the numerator is zero
     	if(firstFrac[0] == 0 || secondFrac[0] == 0){
     		result[0] = 0;
     		result[1] = 0;
     	}else{
+    		//there is a numerator and multiplies everything out
 	    	result[0] = firstFrac[0] * secondFrac[0];
 	    	result[1] = firstFrac[1] * secondFrac[1];
     	}
@@ -174,6 +184,7 @@ public class FracCalc {
     }
     
     public static int[] divideFrac(int[] firstFrac, int[] secondFrac){
+    	//changes the numerator and denominator of the second fraction
     	int tempVar = secondFrac[1];
     	secondFrac[1] = secondFrac[0];
     	secondFrac[0] = tempVar;
@@ -181,10 +192,34 @@ public class FracCalc {
     	return multiplyFrac(firstFrac, secondFrac);
     }
     
+    public static int[] reduceResult(int[] fraction){
+    	//find gcf of the fraction
+    	int gcf = 1;
+    	int smallestNum;
+    	if(fraction[0] > fraction[1]){
+    		smallestNum = fraction[1];
+    	}else{
+    		smallestNum = fraction[0];
+    	}
+    	for(int i = smallestNum - 1; i >= 2; i--){
+    		if(fraction[0] % i == 0 && fraction[1] % i == 0){
+    			gcf = i;
+    		}
+    	}
+    	//divide numerator and denominator by the gcf
+    	fraction[0] = fraction[0] / gcf;
+    	fraction[1] = fraction[1] / gcf;
+    	
+    	return (fraction);
+    }
+    
     public static String toMixedNum(int[] frac){
+    	
     	int wholeNum = frac[0] / frac[1];
     	int numerator = frac[0] % frac[1];
     	int denominator = frac[1];
+    	//checks to see if the numerator or denominator are 
+    	//negative and changes their signs
     	if(numerator < 0){
     		numerator *= -1;
     	}
