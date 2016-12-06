@@ -41,20 +41,20 @@ public class FracCalc {
     	//the user inputs the string with spaces in between 
     	//so the code splits the string by the spaces to get everything
     	String[] splitInput = parseInput(input);
-    	//System.out.println(Arrays.toString(splitInput));
+    	System.out.println(Arrays.toString(splitInput));
         
     	//Split the fraction into the whole number, numerator, and denominator
     	int[] firstOperand = parseOperand(splitInput[0]);
     	String operator = splitInput[1];
         int[] secondOperand = parseOperand(splitInput[2]);
-        //System.out.println(Arrays.toString(firstOperand));
-        //System.out.println(Arrays.toString(secondOperand));
+        System.out.println(Arrays.toString(firstOperand));
+        System.out.println(Arrays.toString(secondOperand));
         
         //convert from mixed number to improper fraction
         int[] firstFrac = toImproperFrac(firstOperand);
         int[] secondFrac = toImproperFrac(secondOperand);
-        //System.out.println(Arrays.toString(firstFrac));
-        //System.out.println(Arrays.toString(secondFrac));
+        System.out.println(Arrays.toString(firstFrac));
+        System.out.println(Arrays.toString(secondFrac));
         
         //decide whether to use add, subtract, divide or multiply
         int[] resultFrac = new int [2];
@@ -73,10 +73,12 @@ public class FracCalc {
         	return("0");
         }
         //reduce the fraction
-        int[] finalFrac = reduceResult(resultFrac);
+        int[] finalFrac = toMixedNum(resultFrac);
         System.out.println(Arrays.toString(finalFrac));
+        
         //convert back from improper fraction to a mixed number and reduce it
-        return(toMixedNum(finalFrac));
+        System.out.println(reduceResult(finalFrac));
+        return(reduceResult(finalFrac));
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
@@ -192,42 +194,53 @@ public class FracCalc {
     	return multiplyFrac(firstFrac, secondFrac);
     }
     
-    public static int[] reduceResult(int[] fraction){
+    public static int[] toMixedNum(int[] frac){
+    	if(frac[1] == 1){
+    		int[] resultFrac = {frac[0]};
+    		return (resultFrac);
+    	}
+    	int[] resultFrac = new int[3];
+    	resultFrac[0] = frac[0] / frac[1];
+    	resultFrac[1] = frac[0] % frac[1];
+    	resultFrac[2] = frac[1];
+    	
+    	//checks to see if the numerator or denominator are 
+    	//negative and changes their signs
+    	
+    	return (resultFrac);
+    }
+    
+    public static String reduceResult(int[] fraction){
+    	if(fraction.length == 1){
+    		return (Integer.toString(fraction[0]));
+    	}
+    	
     	//find gcf of the fraction
     	int gcf = 1;
     	int smallestNum;
-    	if(fraction[0] > fraction[1]){
-    		smallestNum = fraction[1];
+    	if(fraction[1] > fraction[2]){
+    		smallestNum = fraction[2];
     	}else{
-    		smallestNum = fraction[0];
+    		smallestNum = fraction[1];
     	}
     	for(int i = smallestNum - 1; i >= 2; i--){
-    		if(fraction[0] % i == 0 && fraction[1] % i == 0){
+    		if(fraction[1] % i == 0 && fraction[2] % i == 0){
     			gcf = i;
     		}
     	}
     	//divide numerator and denominator by the gcf
-    	fraction[0] = fraction[0] / gcf;
-    	fraction[1] = fraction[1] / gcf;
+    	int numerator = fraction[1] / gcf;
+    	int denominator = fraction[2] / gcf;
     	
-    	return (fraction);
-    }
-    
-    public static String toMixedNum(int[] frac){
-    	
-    	int wholeNum = frac[0] / frac[1];
-    	int numerator = frac[0] % frac[1];
-    	int denominator = frac[1];
-    	//checks to see if the numerator or denominator are 
-    	//negative and changes their signs
     	if(numerator < 0){
     		numerator *= -1;
     	}
+    	
     	if(denominator < 0){
     		denominator *= -1;
     	}
     	
-    	return (wholeNum + "_" + numerator + "/" + denominator);
+    	return (fraction[0] + "_" + numerator + "/" + denominator);
     }
 
 }
