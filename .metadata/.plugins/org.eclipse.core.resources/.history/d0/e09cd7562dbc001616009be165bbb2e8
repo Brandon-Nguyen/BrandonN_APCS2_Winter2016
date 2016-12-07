@@ -231,16 +231,11 @@ public class FracCalc {
     	if(fraction.length == 1 || fraction[1] == 0){
     		return (Integer.toString(fraction[0]));
     	}
-    	if(fraction[1] < 0 && fraction[0] != 0){
+    	if(fraction[1] < 0){
     		fraction[1] *= -1;
     	}
     	
-    	if(fraction[2] < 0 && fraction[0] != 0){
-    		fraction[2] *= -1;
-    	}
-    	
-    	if(fraction[1] > 0 && fraction[2] < 0){
-    		fraction[1] *= -1;
+    	if(fraction[2] < 0){
     		fraction[2] *= -1;
     	}
     	int gcf = gcf(fraction[1], fraction[2]);

@@ -213,13 +213,13 @@ public class FracCalc {
     public static int gcf(int num1, int num2) {
     	//find gcf of the fraction
     	int gcf = 1;
-    	int largestNum;
+    	int smallestNum;
     	if(num1 > num2){
-    		largestNum = num1;
+    		smallestNum = num2;
     	}else{
-    		largestNum = num2;
+    		smallestNum = num1;
     	}
-    	for(int i = largestNum - 1; i >= 2; i--){
+    	for(int i = smallestNum - 1; i >= 2; i--){
     		if(num1 % i == 0 && num2 % i == 0){
     			gcf = i;
     		}
@@ -231,36 +231,21 @@ public class FracCalc {
     	if(fraction.length == 1 || fraction[1] == 0){
     		return (Integer.toString(fraction[0]));
     	}
-    	if(fraction[1] < 0 && fraction[0] != 0){
-    		fraction[1] *= -1;
-    	}
     	
-    	if(fraction[2] < 0 && fraction[0] != 0){
-    		fraction[2] *= -1;
-    	}
-    	
-    	if(fraction[1] > 0 && fraction[2] < 0){
-    		fraction[1] *= -1;
-    		fraction[2] *= -1;
-    	}
     	int gcf = gcf(fraction[1], fraction[2]);
-    	for(int i = gcf + 1; i < fraction[2]; i++){
-    		if(fraction[1] % i == 0 && fraction[2] % i == 0){
-    			gcf = i;
-    		}
-    	}
-    	System.out.println(gcf);
     	//divide numerator and denominator by the gcf
     	int numerator = fraction[1] / gcf;
     	int denominator = fraction[2] / gcf;
     	
-    	
-    	
-    	if(fraction[0] == 0){
-    		return(numerator + "/" + denominator);
-    	}else{
-    		return (fraction[0] + "_" + numerator + "/" + denominator);
+    	if(numerator < 0){
+    		numerator *= -1;
     	}
+    	
+    	if(denominator < 0){
+    		denominator *= -1;
+    	}
+    	
+    	return (fraction[0] + "_" + numerator + "/" + denominator);
     }
 
 }
