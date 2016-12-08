@@ -38,31 +38,21 @@ public class FracCalc {
     { 
     	// TODO: Implement this function to produce the solution to the input
     	
-    	//the user inputs the string with spaces in between 
-    	//so the code splits the string by the spaces to get everything
+    	//splits the input by spaces and returns as string array
     	String[] splitInput = parseInput(input);
-    	
-    	//System.out.println(Arrays.toString(splitInput));
     	
     	//Split the fraction into the whole number, numerator, and denominator
     	int[] firstOperand = parseOperand(splitInput[0]);
     	String operator = splitInput[1];
         int[] secondOperand = parseOperand(splitInput[2]);
         
-        //System.out.println(Arrays.toString(firstOperand));
-        //System.out.println(Arrays.toString(secondOperand));
-        
         //convert from mixed number to improper fraction
         int[] firstFrac = toImproperFrac(firstOperand);
         int[] secondFrac = toImproperFrac(secondOperand);
-        
-        //System.out.println(Arrays.toString(firstFrac));
-        //System.out.println(Arrays.toString(secondFrac));
-        
+
         //decide whether to use add, subtract, divide or multiply
         //make an integer array to store the result 
         int[] resultFrac = new int [2];
-
         if(operator.equals("+")){
         	resultFrac =  addFrac(firstFrac, secondFrac);
         }else if(operator.equals("-")){
@@ -72,16 +62,15 @@ public class FracCalc {
         }else{
         	resultFrac =  divideFrac(firstFrac, secondFrac);
         }
-        
+        //checks to see if the numerator and whole number 
+        //are zero and returns zero as the answer
         if(resultFrac[0] == 0 && resultFrac[1] == 0){
         	return("0");
         }
-        //reduce the fraction
-        int[] finalFrac = toMixedNum(resultFrac);
-        //System.out.println(Arrays.toString(finalFrac));
         
         //convert back from improper fraction to a mixed number and reduce it
-        //System.out.println(reduceResult(finalFrac));
+        int[] finalFrac = toMixedNum(resultFrac);
+
         return(reduceResult(finalFrac));
     }
 
@@ -94,24 +83,21 @@ public class FracCalc {
     
     public static int[] parseOperand(String operand){
     	
-    	//Initializes the varibles that will be returned later
+    	//Initializes the array with wholeNum, numerator, denominator
     	int[] fracArr = {0, 0, 1};
     	
     	//checks to see if the operand is a fraction or just a whole number
     	if(operand.indexOf("/") == -1){
-    		
-    		//makes the whole number equal to the operand put into the method
-    		fracArr[0] = Integer.parseInt(operand);
-    		return fracArr;
+			//returns the whole number from the operand only
+			fracArr[0] = Integer.parseInt(operand);
+			return fracArr;
 		}
     	
     	//checks to see if the fraction has a whole number
     	if(operand.indexOf("_") != -1){
     		
-    		//splits the array by the underscore to tell if the operand has a whole number or not
+    		//splits the array by the underscore, splits to whole number and fraction
     		String [] underscoreSplit = operand.split("_");
-    		
-    		//assings the whole number to the corresponding variable
     		fracArr[0] = Integer.parseInt(underscoreSplit[0]);
     		
     		//changes operand so that it is only the fraction, without the whole number
@@ -119,22 +105,17 @@ public class FracCalc {
     		
     	}
     	
-    	//checks to see if the operand leftover is a fraction
-    	if(operand.length() >= 3){
-    		
-    		//splits the operand or remainder of the fraction by the slash and 
-    		//assings numerator and denominator
-    		String[] numOrDenom = operand.split("/");
-    		fracArr[1] = Integer.parseInt(numOrDenom[0]);
-    		fracArr[2] = Integer.parseInt(numOrDenom[1]);
-    	}
+    	//splits the fraction into numerator and denominator
+		String[] numOrDenom = operand.split("/");
+		fracArr[1] = Integer.parseInt(numOrDenom[0]);
+		fracArr[2] = Integer.parseInt(numOrDenom[1]);
     	return fracArr;
     }
     
     public static int[] toImproperFrac(int[] operand) {
     	//set up array that will be returned later
     	int[] numDenom = new int[2];
-    	//checking to see if the fraction is negative or positive
+    	//checking to see if the if there is a whole number and if its positive or negative
     	if(operand[0] == 0){
     		numDenom[0] = operand[1];
     	}else if(operand[0] < 0){
@@ -216,11 +197,11 @@ public class FracCalc {
     	return (resultFrac);
     }
     
-    public static int gcf(int num1, int num2) {
+    public static int gcf(int numerator, int denominator) {
     	//find gcf of the fraction
     	int gcf = 1;
-    	for(int i = num2 - 1; i >= 2; i--){
-    		if(num1 % i == 0 && num2 % i == 0){
+    	for(int i = denominator - 1; i >= 2; i--){
+    		if(numerator % i == 0 && denominator % i == 0){
     			gcf = i;
     		}
     	}
@@ -228,20 +209,17 @@ public class FracCalc {
 	}
     
     public static String reduceResult(int[] fraction){
-    	//checks to see if the fraction only has a whole number or 
-    	//if it is only a whole number
+    	//checks to see if its only a whole number
     	if(fraction.length == 1 || fraction[1] == 0){
     		return (Integer.toString(fraction[0]));
     	}
     	
     	//checks to see if the numerator is negative and if the whole number isn't zero
-    	// then get rid of the negative in the numerator
     	if(fraction[1] < 0 && fraction[0] != 0){
     		fraction[1] *= -1;
     	}
     	
-    	//checks to see if the denominator is negative and if the whole number is there
-    	// then get rid of the negative in the denominator
+    	//checks to see if the denominator is negative and if there is whole number
     	if(fraction[2] < 0 && fraction[0] != 0){
     		fraction[2] *= -1;
     	}
@@ -255,14 +233,13 @@ public class FracCalc {
     	//finds the gcf of the fraction
     	int gcf = gcf(fraction[1], fraction[2]);
     	
-    	//uses the gcf to check if it is the gcf, if no then updates it
+    	// uses the gcf to check for an additional gcf and updates it to the new one
     	for(int i = gcf + 1; i < fraction[2]; i++){
     		if(fraction[1] % i == 0 && fraction[2] % i == 0){
     			gcf = i;
     		}
     	}
-    	//System.out.println(gcf);
-    	
+
     	//divide numerator and denominator by the gcf
     	int numerator = fraction[1] / gcf;
     	int denominator = fraction[2] / gcf;
